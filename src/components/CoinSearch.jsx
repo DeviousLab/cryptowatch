@@ -12,7 +12,6 @@ const CoinSearch = () => {
     axios.get(url)
       .then(res => {
         setCoins(res.data);
-        console.log(res.data);
       })
       .catch(err => {
         console.log(err);

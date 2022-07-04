@@ -29,7 +29,7 @@ const Footer = () => {
         <div className='text-right mr-4'>
           <div className='w-full flex justify-end'>
             <div className='w-full md:w-[300px] pb-4 relative'>
-              <p className='text-center '>Sign Up For Crypto News</p>
+              <p className='mr-2'>Join our newsletter!</p>
               <div className='py-4'>
                 <form>
                   <input className='bg-primary border border-input p-2 mr-2 w-full shadow-xl rounded-2xl md:w-auto' type='email' placeholder='Enter your email' />

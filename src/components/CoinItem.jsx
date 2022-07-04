@@ -1,13 +1,43 @@
-import React from 'react'
-import { AiOutlineStar } from 'react-icons/ai';
+import React, { useState } from 'react'
+import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { Sparklines, SparklinesLine, SparklinesReferenceLine } from 'react-sparklines';
+import { db } from '../firebase';
+import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
+
+import { UserAuth } from '../context/AuthContext';
 
 const CoinItem = ({ coin }) => {
+  const [favourite, setFavourite] = useState(false);
+  
+  const { user } = UserAuth();
+
+  const coinPath = doc(db, 'users', `${user?.email}`)  
+  const handleFavourite = async () => {
+    if (user?.email) {
+      setFavourite(true);
+      await updateDoc(coinPath, {
+        watchlist: arrayUnion({
+          id: coin.id,
+          name: coin.name,
+          image: coin.image,
+          rank: coin.market_cap_rank,
+          symbol: coin.symbol,
+        }),
+      })
+    } else {
+      alert('Please sign in to add to your watchlist');
+    }
+  }
+
   return (
     <tr className='h-[80px] border-b overflow-hidden'>
-      <td>
-        <AiOutlineStar />
+      <td onClick={handleFavourite}>
+        {favourite ? (
+          <AiFillStar size={20} className='text-accent' />
+        ) : (
+          <AiOutlineStar size={20} />
+        )}
       </td>
       <td>
         {coin.market_cap_rank}

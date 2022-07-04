@@ -1,9 +1,34 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AiOutlineClose } from 'react-icons/ai'
+import { doc, onSnapshot, updateDoc } from 'firebase/firestore'
+
+import { db } from '../firebase'
+import { UserAuth } from '../context/AuthContext'
 
 const CoinFavourite = () => {
   const [coins, setCoins] = useState([])
+  
+  const { user } = UserAuth()
+  
+  useEffect(() => {
+    onSnapshot(doc(db, 'users', `${user?.email}`), (snapshot) => {
+      setCoins(snapshot.data()?.watchlist)
+    })
+  }, [user])
+
+  const coinPath = doc(db, 'users', `${user?.email}`)
+
+  const handleRemove = async (coinid) => {
+    try {
+      const newCoins = coins.filter(item => item.id !== coinid)
+      await updateDoc(coinPath, {
+        watchlist: newCoins
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
     <div>
       {coins.length === 0 ? (
@@ -39,6 +64,7 @@ const CoinFavourite = () => {
                 <td className='pl-8'>
                   <AiOutlineClose
                     className='cursor-pointer'
+                    onClick={() => handleRemove(coin.id)}
                   />
                 </td>
               </tr>

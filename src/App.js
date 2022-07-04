@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Router, Routes } from "react-router-dom";
 
 import { ThemeProvider } from "./context/ThemeContext";
+import { AuthContextProvider } from "./context/AuthContext";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import SignIn from "./pages/SignIn";
@@ -13,17 +14,19 @@ import Footer from "./components/Footer";
 function App() {
   return (
     <ThemeProvider>
+      <AuthContextProvider>
       <Navbar />
       <Routes >
         <Route path="/" element={<Home />} />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/signup" element={<SignUp />} />
+        <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/sign-up" element={<SignUp />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/coin/:coinId" element={<CoinPage />}>
           <Route path=":coinId" />
         </Route>
       </Routes>
       <Footer />
+      </AuthContextProvider>
     </ThemeProvider>
   );
 }

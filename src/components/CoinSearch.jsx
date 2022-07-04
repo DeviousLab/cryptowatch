@@ -49,10 +49,11 @@ const CoinSearch = () => {
         <tbody>
           {coins.filter((value) => {
             if (query === '') {
-              return value
+              return value;
             } else if (value.name.toLowerCase().includes(query.toLowerCase())) {
-              return value
+              return value;
             }
+            return null;
           }).map((coin, index) => (
             <CoinItem key={index} coin={coin} />
           ))}

@@ -63,20 +63,20 @@ const Navbar = () => {
         : 'fixed left-[-100%] top-20 h-[90%] flex flex-col items-center justify-between ease-in duration-500'}>
         <ul className='w-full p-4'>
           <li className='border-b py-6'>
-            <Link to='/'>Home</Link>
+            <Link onClick={toggleNav} to='/'>Home</Link>
           </li>
           <li className='border-b py-6'>
-            <Link to='/dashboard'>Dashboard</Link>
+            <Link onClick={toggleNav} to='/dashboard'>Dashboard</Link>
           </li>
           <li className=' py-6'>
             <ToggleTheme />
           </li>
         </ul>
         <div className='flex flex-col w-full p-4'>
-          <Link to='/sign-in'>
+          <Link onClick={toggleNav} to='/sign-in'>
             <button className='w-full my-2 p-3 bg-primary text-primary border border-secondary rounded-2xl shadow-xl'>Sign In</button>
           </Link>
-          <Link to='/sign-up'>
+          <Link onClick={toggleNav} to='/sign-up'>
             <button className='w-full my-2 p-3 bg-button text-btnText rounded-2xl shadow-xl'>Sign Up</button>
           </Link>
         </div>

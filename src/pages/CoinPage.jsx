@@ -3,6 +3,7 @@ import axios from 'axios'
 import { Sparklines, SparklinesLine, SparklinesReferenceLine } from 'react-sparklines';
 import { FaTwitter, FaFacebook, FaReddit, FaGithub } from 'react-icons/fa';
 import DOMPurify from 'dompurify';
+import { useParams } from 'react-router-dom';
 
 import Spinner from '../components/Spinner';
 
@@ -10,8 +11,9 @@ const CoinPage = () => {
   const [coin, setCoin] = useState({});
   const [loading, setLoading] = useState(true);
 
-  const url = 'https://api.coingecko.com/api/v3/coins/bitcoin?localization=false&sparkline=true';
-  
+  const { coinId } = useParams();
+
+  const url = `https://api.coingecko.com/api/v3/coins/${coinId}?localization=false&sparkline=true`;
   useEffect(() => {
     const fetchData = async () => {
       const res = await axios.get(url);
@@ -22,7 +24,7 @@ const CoinPage = () => {
     .catch(err => {
       console.log(err);
     })
-  }, []);
+  }, [url]);
 
   if (loading) {
     return <Spinner />;
@@ -33,7 +35,7 @@ const CoinPage = () => {
       <div className='flex py-8'>
         <img className='w-20 mr-8' src={coin.image?.large} alt='/' />
         <div>
-          <p className='text-3xl font-bold'>{coin?.name} price</p>
+          <p className='text-3xl font-bold'>{coin?.name} Price</p>
           <p>({coin.symbol?.toUpperCase()} / USD)</p>
         </div>
       </div>
@@ -42,7 +44,7 @@ const CoinPage = () => {
         <div>
           <div className='flex justify-between'>
             {coin.market_data?.current_price ? (
-              <p className='text-3xl font-bold'>{coin.market_data.current_price.usd.toLocaleString(undefined, { style: "currency", currency: "USD", minimumFractionDigits: 0, maximumFractionDigits: 0 })}</p>
+              <p className='text-3xl font-bold'>{coin.market_data.current_price.usd.toLocaleString(undefined, { style: "currency", currency: "USD" })}</p>
             ) : null}
             <p>7 Day</p>
           </div>
@@ -84,7 +86,7 @@ const CoinPage = () => {
         </div>
 
         <div>
-          <p className='text-xl font-bold'>Market Stats</p>
+          <p className='text-xl font-bold text-center'>Market Stats</p>
           <div className='flex justify-evenly py-4 text-center'>
             <div>
               <p className='text-gray-500 text-sm'>Market Rank</p>
@@ -191,7 +193,7 @@ const CoinPage = () => {
           <div className='flex justify-around p-8 text-accent'>
             <a href={`https://twitter.com/${coin.links.twitter_screen_name}`} target="_blank" rel='noreferrer'><FaTwitter size={25} /></a>
             <a href={`https://facebook.com/${coin.links.facebook_username}`} target="_blank" rel='noreferrer'><FaFacebook size={25}/></a>
-            <a href={`https://twitter.com/${coin.links.subreddit_url}`} target="_blank" rel='noreferrer'><FaReddit size={25}/></a>
+            <a href={`${coin.links.subreddit_url}`} target="_blank" rel='noreferrer'><FaReddit size={25}/></a>
             <a href={`${coin.links.repos_url.github[0]}`} target="_blank" rel='noreferrer'><FaGithub size={25}/></a>
           </div>
         </div>

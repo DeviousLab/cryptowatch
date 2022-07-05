@@ -16,7 +16,7 @@ const SignIn = () => {
     e.preventDefault();
     try {
       await signIn(email, password);
-      navigate('/dashboard');
+      navigate('/');
     } catch (error) {
       setError(error.message);
       console.log(error);
@@ -59,6 +59,13 @@ const SignIn = () => {
           <Link to='/signup' className='text-accent'>
             Sign up
           </Link>
+        </p>
+        <p className='my-4 text-red-600'>
+          Sample Account:
+          <br />
+          Email: test@test.com
+          <br />
+          Password: 123456
         </p>
       </div>
     </div>

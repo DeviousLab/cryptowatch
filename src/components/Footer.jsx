@@ -46,7 +46,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <p className='text-center py-4'>Powered by <a href="https://www.coingecko.com/en/api">CoinGecko API</a></p>
+      <p className='text-center py-4'>Powered by <a className='text-accent' href="https://www.coingecko.com/en/api">CoinGecko API</a></p>
     </div>
   );
 }

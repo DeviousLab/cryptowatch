@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import CoinFavourite from '../components/CoinFavourite';
 import { UserAuth } from '../context/AuthContext';
+import Spinner from '../components/Spinner';
 
 const Account = () => {
   const { user, logout } = UserAuth();
@@ -16,6 +17,7 @@ const Account = () => {
       console.log(error);
     }
   }
+
 
   return (
     <div className='max-w-[1140px] mx-auto'>

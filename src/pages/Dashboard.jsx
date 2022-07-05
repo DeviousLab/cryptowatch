@@ -18,6 +18,9 @@ const Account = () => {
     }
   }
 
+  if (!user?.email) {
+    return <Spinner />
+  }
 
   return (
     <div className='max-w-[1140px] mx-auto'>
